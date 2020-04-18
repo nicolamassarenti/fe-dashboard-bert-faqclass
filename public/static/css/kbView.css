@@ -1,0 +1,6 @@
+.title-view {
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  color: var(--light-heading-color);
+}
