@@ -33,7 +33,7 @@
 										aria-describedby="inputGroup-sizing-default"
 										v-model="newExample"
 									/>
-									<button class="btn btn-outline-success" type="button" v-on:click="saveNewExample()">
+									<button class="btn btn-outline-success" type="button" v-on:click="confirmExample()">
 										<i class="fas fa-check-circle fa-xs"></i>
 									</button>
 								</li>
@@ -128,49 +128,33 @@ export default {
 			this.show = !this.show;
 			this.addNewExample = !this.addNewExample;
 		},
-		async deleteExample(sentence) {
+		deleteExample(sentence) {
 			let that = this;
-			let parameters = {
-				params: {
-					id: that.id,
+			
+			this.$eventHub.$emit(
+				"deleteExample", 
+				{
 					lang: that.lang,
 					example: sentence
 				}
-			};
-			await axios
-				.delete(that.urlBackendExample, parameters)
-				.then(res => {
-					var index = that.examples.indexOf(sentence);
-					if (index !== -1) that.examples.splice(index, 1);
-				})
-				.catch(err => {
-					console.log(err);
-				});
+			);
 		},
 		addExample() {
 			this.add = !this.add;
 		},
-		async saveNewExample() {
+		async confirmExample() {
 			let that = this;
-			let parameters = {
-				params: {
-					id: that.id,
+			this.$eventHub.$emit(
+				"newExample", 
+				{
 					lang: that.lang,
 					example: that.newExample
 				}
-			};
-			console.log(that.urlBackendExample);
-			await axios
-				.put(that.urlBackendExample, null, parameters)
-				.then(res => {
-					that.add = false;
-					that.addNewExample = true;
-					that.examples.push(that.newExample);
-					that.newExample = "";
-				})
-				.catch(err => {
-					console.log(err);
-				});
+			);
+			
+			that.add = false;
+			that.addNewExample = true;
+			that.newExample = "";
 		}
 	}
 };

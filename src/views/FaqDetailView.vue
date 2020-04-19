@@ -70,8 +70,21 @@ export default {
 			global.config.backendApiPath +
 			global.config.getFaqsEndpoint;
 		this.getFaqDetails();
+
+		this.$eventHub.$on("newExample", this.addNewExample);
+		this.$eventHub.$on("deleteExample", this.deleteExample);
 	},
 	methods: {
+		addNewExample(obj){
+			let that = this;
+			that.examples[obj.lang].push(obj.example);
+		},
+		deleteExample(obj){
+			let that = this;
+
+			var index = that.examples[obj.lang].indexOf(obj.example);
+			if (index !== -1) that.examples[obj.lang].splice(index, 1);
+		},
 		async getFaqDetails() {
 			let that = this;
 			let parameters = {};
