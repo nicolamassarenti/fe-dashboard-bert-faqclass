@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col-10">
 					<h5 class="card-title">Main question</h5>
-					<span class="card-text">{{question}}</span>
+					<span class="card-text">{{text}}</span>
 				</div>
 				<div class="col-2">
 					<div v-if="!edit" class="main-question-edit-container">
@@ -71,24 +71,11 @@ export default {
 		editMainQuestion() {
 			this.edit = !this.edit;
 		},
-		async saveNewMainQuestion() {
+		saveNewMainQuestion() {
 			let that = this;
 
-			let parameters = {
-				params: {
-					mainQuestion: that.question,
-					id: that.id
-				}
-			};
-			await axios
-				.put(that.urlBackend, null, parameters)
-				.then(res => {
-					that.text = that.question;
-					that.edit = !that.edit;
-				})
-				.catch(err => {
-					console.log(err);
-				});
+			this.$eventHub.$emit("newMainQuestion", that.question);
+			that.edit = !that.edit;
 		}
 	}
 };

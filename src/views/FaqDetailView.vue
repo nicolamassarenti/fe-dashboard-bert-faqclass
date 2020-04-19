@@ -73,6 +73,7 @@ export default {
 
 		this.$eventHub.$on("newExample", this.addNewExample);
 		this.$eventHub.$on("deleteExample", this.deleteExample);
+		this.$eventHub.$on("newMainQuestion", this.setNewMainQuestion);
 	},
 	methods: {
 		addNewExample(obj){
@@ -99,6 +100,10 @@ export default {
 					that.trained = response.data.trained;
 				})
 				.catch(function(error) {});
+		},
+		setNewMainQuestion(question){
+			let that = this;
+			that.mainQuestion = question;
 		}
 	}
 };
