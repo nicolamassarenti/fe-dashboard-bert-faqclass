@@ -75,12 +75,6 @@ export default {
 				global.config.backendPort +
 				global.config.backendApiPath +
 				global.config.getLanguageEndpoint,
-			urlBackendExample:
-				global.config.backendUrl +
-				global.config.backendPort +
-				global.config.backendApiPath +
-				global.config.getFaqsEndpoint +
-				global.config.getExampleEndpoint,
 			displayLang: "",
 			hideButtonClass: {
 				true: "far fa-eye",
@@ -142,7 +136,7 @@ export default {
 		addExample() {
 			this.add = !this.add;
 		},
-		async confirmExample() {
+		confirmExample() {
 			let that = this;
 			this.$eventHub.$emit(
 				"newExample", 

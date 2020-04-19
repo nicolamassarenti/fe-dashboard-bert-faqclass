@@ -45,11 +45,6 @@ export default {
 		return {
 			edit: false,
 			question: "",
-			urlBackend:
-				global.config.backendUrl +
-				global.config.backendPort +
-				global.config.backendApiPath +
-				global.config.getFaqsEndpoint
 		};
 	},
 	props: {

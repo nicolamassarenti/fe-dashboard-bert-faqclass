@@ -111,7 +111,8 @@ router.get('/api/faq', function (req, res) {
 });
 
 router.put('/api/faq', function (req, res) {
-	console.log("PUT request to /api/faq - id: " + req.query.id);
+	console.log("PUT request to /api/faq - id: ");
+	console.log(req.body)
 
 	res.sendStatus(200);
 });
