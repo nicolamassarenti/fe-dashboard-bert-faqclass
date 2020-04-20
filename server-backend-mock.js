@@ -57,6 +57,19 @@ let faqDetail3 = {
 	}
 }
 
+let newFaq = {
+	id: "101001",
+	mainQuestion: "",
+	trained: true,
+	examples: {
+		'it': [],
+		'en': [],
+		'fr': [],
+		'de': [],
+		'nl': []
+	}
+}
+
 let faqPreviews = {
 	kb: [faqPreview1, faqPreview2, faqPreview3]
 };
@@ -92,6 +105,10 @@ router.get('/api/lang', function (req, res) {
 router.get('/api/faq', function (req, res) {
 	if (req.query.id != undefined) {
 		let id = req.query.id;
+		if(id =="newFaq"){
+			console.log("GET request to /api/faq - new faq");
+			res.send(newFaq);
+		}else{
 		console.log("GET request to /api/faq?id=" + req.query.id);
 		switch (id) {
 			case "00001":
@@ -103,7 +120,7 @@ router.get('/api/faq', function (req, res) {
 			case "00003":
 				res.send(faqDetail3);
 				break;
-		}
+		}}
 	} else {
 		console.log("GET request to /api/faq");
 		res.send(faqPreviews);

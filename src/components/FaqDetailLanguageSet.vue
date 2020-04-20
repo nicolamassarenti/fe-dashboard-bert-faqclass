@@ -6,7 +6,7 @@
 					<h5 class="card-title">{{displayLang}}</h5>
 				</div>
 				<div class="col-10">
-					<div v-if="show" class="card">
+					<div v-if="isNotEmpty()"><div v-if="show" class="card">
 						<ul class="list-group list-group-flush">
 							<li
 								class="list-group-item d-flex justify-content-between align-items-center"
@@ -39,6 +39,7 @@
 								</li>
 							</ul>
 						</div>
+					</div>
 					</div>
 				</div>
 				<div class="col-1">
@@ -83,7 +84,8 @@ export default {
 			show: true,
 			add: false,
 			addNewExample: true,
-			newExample: ""
+			newExample: "",
+			isEmpty: true
 		};
 	},
 	props: {
@@ -121,6 +123,9 @@ export default {
 		hide() {
 			this.show = !this.show;
 			this.addNewExample = !this.addNewExample;
+		},
+		isNotEmpty(){
+			return (this.examples.length > 0 || this.add);
 		},
 		deleteExample(sentence) {
 			let that = this;

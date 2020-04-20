@@ -15,6 +15,10 @@
 				<div class="row">
 					<p></p>
 				</div>
+				<CreateFaqComponent></CreateFaqComponent>
+				<div class="row">
+					<p></p>
+				</div>
 				<div v-for="(faq, index) in faqs" :key="index">
 					<FaqPreviewComponent :id="faq.id" :mainQuestion="faq.mainQuestion" :toTrain="faq.trained"></FaqPreviewComponent>
 				</div>
@@ -30,11 +34,13 @@
 <script>
 import axios from "axios";
 import FaqPreviewComponent from "./../components/FaqPreviewComponent.vue";
+import CreateFaqComponent from "./../components/CreateFaqComponent.vue"
 
 export default {
 	name: "KBView",
 	components: {
-		FaqPreviewComponent
+		FaqPreviewComponent,
+		CreateFaqComponent
 	},
 	data() {
 		return {
@@ -50,8 +56,13 @@ export default {
 			global.config.getFaqsEndpoint;
 
 		this.faqs = this.getFaqs();
+
+		this.$eventHub.$on("createNewFaq", this.createNewFaq);
 	},
 	methods: {
+		createNewFaq(){
+            this.$router.push({name: 'Faq details', params: {id: "newFaq"}});
+		},
 		async getFaqs() {
 			let that = this;
 			await axios
