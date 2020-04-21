@@ -28,7 +28,7 @@
           <p></p>
         </div>
         <div v-for="(example, lang) in examples" :key="lang">
-          <FaqDetailLanguageSet :id="id" :lang="lang" :examples="example"></FaqDetailLanguageSet>
+          <FaqLanguageExamplesComponent :id="id" :displayLang="languages[lang]" :examples="example"></FaqLanguageExamplesComponent>
           <div class="row">
             <p></p>
           </div>
@@ -46,31 +46,38 @@
 import axios from "axios";
 import MainQuestionComponent from "./../components/MainQuestionComponent.vue";
 import FaqDetailCommandsComponent from "./../components/FaqDetailCommandsComponent.vue";
-import FaqDetailLanguageSet from "./../components/FaqDetailLanguageSet.vue";
+import FaqLanguageExamplesComponent from "./../components/FaqLanguageExamplesComponent.vue";
 
 export default {
   name: "FaqDetailView",
   components: {
     MainQuestionComponent,
     FaqDetailCommandsComponent,
-    FaqDetailLanguageSet
+    FaqLanguageExamplesComponent
   },
   data() {
     return {
       id: "",
-      urlBackend: "",
+      urlBackend: global.config.backendUrl +
+        global.config.backendPort +
+        global.config.backendApiPath +
+        global.config.getFaqsEndpoint,
+			urlBackendLanguage:
+				global.config.backendUrl +
+				global.config.backendPort +
+				global.config.backendApiPath +
+				global.config.getLanguageEndpoint,
       mainQuestion: "",
       examples: [],
-      trained: false
+	  trained: false,
+	  languages: {}
     };
+  },
+  created(){
+    this.getDisplayLanguages();
   },
   mounted() {
     this.id = this.$route.params.id;
-    this.urlBackend =
-      global.config.backendUrl +
-      global.config.backendPort +
-      global.config.backendApiPath +
-      global.config.getFaqsEndpoint;
     this.getFaqDetails();
 
     this.$eventHub.$on("changeTrainingStatus", this.changeTrainingStatus);
@@ -109,7 +116,18 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    },
+	},
+	async getDisplayLanguages(){
+		let that = this;
+		await axios
+			.get(this.urlBackendLanguage)
+			.then(res => {
+					that.languages = res.data.languages;
+				})
+			.catch(err => {
+				console.log(err);
+			});
+	},
     async getFaqDetails() {
       let that = this;
       await axios

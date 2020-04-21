@@ -82,24 +82,15 @@ router.use(function timeLog(req, res, next) {
 
 
 router.get('/api/lang', function (req, res) {
-	console.log("GET request to /api/lang?lang=" + req.query.lang);
-	switch(req.query.lang){
-		case 'it':
-			res.send({"displayLang":"Italian"});
-			break;
-		case 'en':
-			res.send({"displayLang":"English"});
-			break;
-		case 'fr':
-			res.send({"displayLang":"French"});
-			break;
-		case 'de':
-			res.send({"displayLang":"German"});
-			break;
-		case 'nl':
-			res.send({"displayLang":"Dutch"});
-			break;
+	console.log("GET request to /api/lang");
+	let languages = {
+		'it': "Italian",
+		'en': "English",
+		'fr': "French",
+		'de': "German",
+		'nl': "Dutch"
 	}
+	res.send({"languages": languages});
 });
 
 router.get('/api/faq', function (req, res) {
