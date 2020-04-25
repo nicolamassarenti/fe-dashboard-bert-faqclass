@@ -3,23 +3,15 @@
     <div class="card-body">
       <div class="row">
         <div class="col-1">
-          <h5 class="card-title">{{displayLang}}</h5>
+          <h5 class="card-title">{{ displayLang }}</h5>
         </div>
         <div class="col-10">
           <div v-if="isNotEmpty()">
             <div v-if="show" class="card">
               <ul class="list-group list-group-flush">
-                <li
-                  class="list-group-item d-flex justify-content-between align-items-center"
-                  v-for="(example, index) in examples"
-                  :key="index"
-                >
-                  {{example}}
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger"
-                    v-on:click="deleteExample(example)"
-                  >
+                <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(example, index) in examples" :key="index">
+                  {{ example }}
+                  <button type="button" class="btn btn-outline-danger" v-on:click="deleteExample(example)">
                     <i class="fas fa-trash fa-xs"></i>
                   </button>
                 </li>
@@ -54,17 +46,22 @@
         </div>
       </div>
     </div>
-    <div v-if="addNewExample" class="row">
-      <div class="col-10"></div>
-      <div class="col-1">
-        <button type="button" class="btn btn-outline-success" v-on:click="addExample()">
-          <i class="fas fa-plus fa-xs"></i>
-        </button>
+    <div v-if="addNewExample" class="card-body mt-0 pt-0 bt-0">
+      <div class="row">
+        <div class="col-1 w-100"><p></p></div>
+        <div class="col-10 w-100">
+          <div class="card border-0">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-end align-items-center">
+                  <button type="button" class="btn btn-outline-success" v-on:click="addExample()">
+                    <i class="fas fa-plus fa-xs"></i>
+                  </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-1"></div>
       </div>
-      <div class="col-1"></div>
-    </div>
-    <div class="row">
-      <p></p>
     </div>
   </div>
 </template>
@@ -83,28 +80,28 @@ export default {
         global.config.getLanguageEndpoint,
       hideButtonClass: {
         true: "far fa-eye",
-        false: "far fa-eye-slash"
+        false: "far fa-eye-slash",
       },
       show: true,
       add: false,
       addNewExample: true,
       newExample: "",
-      isEmpty: true
+      isEmpty: true,
     };
   },
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     displayLang: {
       type: String,
-      required: true
+      required: true,
     },
     examples: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   update() {
     this.addNewExample = this.add * this.save;
@@ -121,24 +118,25 @@ export default {
       let that = this;
 
       this.$eventHub.$emit("deleteExample", {
-        lang: that.lang,
-        example: sentence
+        displayLang: that.displayLang,
+        example: sentence,
       });
     },
     addExample() {
-      this.add = !this.add;
+	  this.add = !this.add;
+	  this.addNewExample = false;
     },
     confirmExample() {
       let that = this;
       this.$eventHub.$emit("newExample", {
-        lang: that.lang,
-        example: that.newExample
+        displayLang: that.displayLang,
+        example: that.newExample,
       });
 
       that.add = false;
       that.addNewExample = true;
       that.newExample = "";
-    }
-  }
+    },
+  },
 };
 </script>

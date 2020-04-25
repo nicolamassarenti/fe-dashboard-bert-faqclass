@@ -90,16 +90,17 @@ export default {
   methods: {
     addNewExample(obj) {
       let that = this;
-      that.examples[obj.lang].push(obj.example);
+      let langCode = this.getLangCodeByDisplayLang(obj.displayLang);
+      that.examples[langCode].push(obj.example);
     },
     changeTrainingStatus() {
       this.trained = !this.trained;
     },
     deleteExample(obj) {
       let that = this;
-
-      var index = that.examples[obj.lang].indexOf(obj.example);
-      if (index !== -1) that.examples[obj.lang].splice(index, 1);
+      let langCode = this.getLangCodeByDisplayLang(obj.displayLang);
+      var index = that.examples[langCode].indexOf(obj.example);
+      if (index !== -1) that.examples[langCode].splice(index, 1);
     },
     async deleteFaq() {
       var that = this;
@@ -127,22 +128,30 @@ export default {
 			.catch(err => {
 				console.log(err);
 			});
-	},
-    async getFaqDetails() {
-      let that = this;
-      await axios
-        .get(this.urlBackend, {
-          params: { id: that.id }
-        })
-        .then(function(response) {
-          that.mainQuestion = response.data.mainQuestion;
-          that.examples = response.data.examples;
-          that.id = response.data.id;
-          that.trained = response.data.trained;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+  },
+  getLangCodeByDisplayLang(displayLang){
+    let keys = Object.keys(this.languages);
+    for(let key of keys){
+      if(this.languages[key] == displayLang){
+        return key;
+      }
+    }
+  },
+  async getFaqDetails() {
+    let that = this;
+    await axios
+      .get(this.urlBackend, {
+        params: { id: that.id }
+      })
+      .then(function(response) {
+        that.mainQuestion = response.data.mainQuestion;
+        that.examples = response.data.examples;
+        that.id = response.data.id;
+        that.trained = response.data.trained;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
     },
     async saveFaq() {
       let that = this;
