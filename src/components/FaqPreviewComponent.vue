@@ -1,6 +1,6 @@
 <template>
 	<div class="card faq-card">
-		<div class="container">
+		<div class="container-fluid">
             <div class="row">
 			<div class="col-10 card-body">
 				<span>{{mainQuestion}}</span>
