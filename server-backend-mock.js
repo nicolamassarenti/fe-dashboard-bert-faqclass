@@ -80,6 +80,24 @@ router.use(function timeLog(req, res, next) {
 	next()
 });
 
+router.get('/api/training', function (req, res) {
+	console.log("GET request to /api/training");
+	let logs = [
+		{
+			id: 1,
+			date: Date.now(),
+			active: 10,
+			inactive: 23
+		},
+		{
+			id: 2,
+			date: Date.now(),
+			active: 10,
+			inactive: 23
+		}
+	]
+	res.send({"isOngoingTraining": false, "logs": logs});
+});
 
 router.get('/api/lang', function (req, res) {
 	console.log("GET request to /api/lang");

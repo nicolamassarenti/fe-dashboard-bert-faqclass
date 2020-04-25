@@ -4,5 +4,6 @@
     "backendApiPath": "/api",
     "getFaqsEndpoint": "/faq",
     "getLanguageEndpoint": "/lang",
-    "getExampleEndpoint": "/example"
+    "getExampleEndpoint": "/example",
+    "trainingEndpoint": "/training"
 }
