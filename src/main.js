@@ -5,7 +5,7 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
-global.config = require('./../config/config.json');
+global.config = require("./../config/config.json");
 
 Vue.prototype.$eventHub = new Vue();
 
