@@ -1,9 +1,10 @@
 {
-    "backendUrl": "http://localhost:",
-    "backendPort": "8081",
-    "backendApiPath": "/api",
-    "getFaqsEndpoint": "/faq",
-    "getLanguageEndpoint": "/lang",
-    "getExampleEndpoint": "/example",
-    "trainingEndpoint": "/training"
+    "server": "http://localhost:8081/api",
+    "endpoints": {
+        "kb": "/kb",
+        "faq": "/faq",
+        "trainingModel": "/training/model",
+        "trainingFaq": "/training/faq",
+        "languages": "/lang"
+    }
 }

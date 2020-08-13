@@ -48,16 +48,12 @@ export default {
   },
   data() {
     return {
-      urlBackend: "",
+      urlKb: "",
       faqs: []
     };
   },
   created() {
-    this.urlBackend =
-      global.config.backendUrl +
-      global.config.backendPort +
-      global.config.backendApiPath +
-      global.config.getFaqsEndpoint;
+    this.urlKb = global.config.server + global.config.endpoints["kb"];
 
     this.faqs = this.getFaqs();
 
@@ -70,7 +66,7 @@ export default {
     async getFaqs() {
       let that = this;
       await axios
-        .get(that.urlBackend, {
+        .get(that.urlKb, {
           headers: {
             "Content-Type": "application/json"
           }

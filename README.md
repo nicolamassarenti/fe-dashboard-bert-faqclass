@@ -1,8 +1,9 @@
 # BERT Faq Classification - dashboard frontend
+
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/NicolaMassarenti/fe-dashboard-bert-faqclass)
 [![HitCount](http://hits.dwyl.com/NicolaMassarenti/fe-dashboard-bert-faqclass.svg)](http://hits.dwyl.com/NicolaMassarenti/fe-dashboard-bert-faqclass)
 
-Welcome in the repository of the front-end dashboard for the _bert-faqclass_ project! This repository contains the code to set-up a dashboard to control the knowledge base of your AI chatbot. 
+Welcome in the repository of the front-end dashboard for the _bert-faqclass_ project! This repository contains the code to set-up a dashboard to control the knowledge base of your AI chatbot.
 
 ## Getting Started
 
@@ -14,7 +15,6 @@ Before to install the software make sure you already have installed:
 
 - [Node.js](https://nodejs.org/): an open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside a web browser.
 - [npm](https://www.npmjs.com/): the world's largest software registry. It contains over 800,000 code packages.
-
 
 ### Installing
 
@@ -54,9 +54,9 @@ npm run build
 
 ## Built With
 
-* [Node.js](https://nodejs.org/) - The Javascript runtime environment to execute javascript outside of a browser
-* [npm](https://www.npmjs.com/) - The package manager to download the dependencies
-* [Vue.js](https://vuejs.org/) - The Javascript framework for front-end development
+- [Node.js](https://nodejs.org/) - The Javascript runtime environment to execute javascript outside of a browser
+- [npm](https://www.npmjs.com/) - The package manager to download the dependencies
+- [Vue.js](https://vuejs.org/) - The Javascript framework for front-end development
 
 ## Authors
 
@@ -68,4 +68,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Thanks to Bruno Pistone (https://github.com/bp91) for having introduced me to Vue.js.
+- Thanks to [Bruno Pistone](https://github.com/bp91) for having introduced me to Vue.js.

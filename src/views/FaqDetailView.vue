@@ -68,16 +68,8 @@ export default {
   data() {
     return {
       id: "",
-      urlBackend:
-        global.config.backendUrl +
-        global.config.backendPort +
-        global.config.backendApiPath +
-        global.config.getFaqsEndpoint,
-      urlBackendLanguage:
-        global.config.backendUrl +
-        global.config.backendPort +
-        global.config.backendApiPath +
-        global.config.getLanguageEndpoint,
+      urlFaq: global.config.server + global.config.endpoints["faq"],
+      urlLang: global.config.server + global.config.endpoints["lang"],
       mainQuestion: "",
       examples: [],
       trained: false,
@@ -121,8 +113,8 @@ export default {
         }
       };
       await axios
-        .delete(that.urlBackend, parameters)
-        .then(res => {
+        .delete(that.urlFaq, parameters)
+        .then(function() {
           this.$router.push({ name: "Knowledge Base" });
         })
         .catch(err => {
@@ -132,7 +124,7 @@ export default {
     async getDisplayLanguages() {
       let that = this;
       await axios
-        .get(this.urlBackendLanguage)
+        .get(this.urlLang)
         .then(res => {
           that.languages = res.data.languages;
         })
@@ -151,7 +143,7 @@ export default {
     async getFaqDetails() {
       let that = this;
       await axios
-        .get(this.urlBackend, {
+        .get(this.urlFaq, {
           params: { id: that.id }
         })
         .then(function(response) {
@@ -174,8 +166,8 @@ export default {
       };
 
       await axios
-        .put(this.urlBackend, body)
-        .then(function(response) {
+        .post(this.urlFaq, body)
+        .then(function() {
           that.$router.push({ name: "Knowledge Base" });
         })
         .catch(function(error) {

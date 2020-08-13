@@ -73,11 +73,8 @@ export default {
     return {
       logs: [],
       ongoingTraining: true,
-      trainingEndpoint:
-        global.config.backendUrl +
-        global.config.backendPort +
-        global.config.backendApiPath +
-        global.config.trainingEndpoint
+      urlTraining:
+        global.config.server + global.config.endpoints["trainingModel"]
     };
   },
   created() {
@@ -87,7 +84,7 @@ export default {
     async isOngoingTraining() {
       let that = this;
       await axios
-        .get(that.trainingEndpoint)
+        .get(that.urlTraining)
         .then(res => {
           that.ongoingTraining = res.data.isOngoingTraining;
           that.logs = res.data.logs;

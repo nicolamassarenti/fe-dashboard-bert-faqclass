@@ -49,11 +49,9 @@ export default {
         true: "btn btn-outline-success",
         false: "btn btn-outline-dark"
       },
-      urlBackend:
-        global.config.backendUrl +
-        global.config.backendPort +
-        global.config.backendApiPath +
-        global.config.getFaqsEndpoint,
+      urlFaq: global.config.server + global.config.endpoints["faq"],
+      urlTrainingFaq:
+        global.config.server + global.config.endpoints["trainingFaq"],
       trained: false
     };
   },
@@ -87,8 +85,8 @@ export default {
         }
       };
       await axios
-        .put(that.urlBackend, null, parameters)
-        .then(res => {
+        .put(that.urlTrainingFaq, null, parameters)
+        .then(function() {
           that.trained = newTrainingStatus;
         })
         .catch(err => {
@@ -103,8 +101,8 @@ export default {
         }
       };
       await axios
-        .delete(that.urlBackend, parameters)
-        .then(res => {
+        .delete(that.urlFaq, parameters)
+        .then(function() {
           this.$router.push({ name: "Knowledge Base" });
         })
         .catch(err => {
