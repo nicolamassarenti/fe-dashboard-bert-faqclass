@@ -58,10 +58,6 @@ npm run build
 * [npm](https://www.npmjs.com/) - The package manager to download the dependencies
 * [Vue.js](https://vuejs.org/) - The Javascript framework for front-end development
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
 ## Authors
 
 - **Nicola Massarenti**
