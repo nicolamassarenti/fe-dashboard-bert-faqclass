@@ -1,4 +1,6 @@
 # BERT Faq Classification - dashboard frontend
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/NicolaMassarenti/fe-dashboard-bert-faqclass)
+[![HitCount](http://hits.dwyl.com/NicolaMassarenti/fe-dashboard-bert-faqclass.svg)](http://hits.dwyl.com/NicolaMassarenti/fe-dashboard-bert-faqclass)
 
 Welcome in the repository of the front-end dashboard for the _bert-faqclass_ project! This repository contains the code to set-up a dashboard to control the knowledge base of your AI chatbot. 
 
@@ -40,8 +42,7 @@ To enforce the code to have clear consistent coding convention and to "spot" som
 npm run lint
 ```
 
-This will highlight some errors and criticalities. 
-
+This will highlight some errors and criticalities.
 
 ## Deployment and production build
 
@@ -61,13 +62,9 @@ npm run build
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
 ## Authors
 
-* **Nicola Massarenti** - ** - [PurpleBooth](https://github.com/PurpleBooth)
+- **Nicola Massarenti**
 
 ## License
 
@@ -75,20 +72,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
-
-
-
-
-
-
-
-### Compiles and minifies for production
-
-
-### Lints and fixes files
-
-
-### Customize configuration
+* Thanks to Bruno Pistone (https://github.com/bp91) for having introduced me to Vue.js.
