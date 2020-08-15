@@ -8,6 +8,7 @@
             style="height: 100%; width:100%;"
             :class="classButtonTrained[trained]"
             v-on:click="changeTrainingStatus()"
+            :disabled="isDisabled"
           >
             <i class="fas fa-brain"></i><br />{{ trainingStatusText[trained] }}
           </button>
@@ -45,9 +46,10 @@ export default {
       type: Boolean,
       required: true
     },
-    id: {
-      type: String,
-      required: true
+    isDisabled: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data() {

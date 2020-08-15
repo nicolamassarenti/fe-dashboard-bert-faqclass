@@ -21,19 +21,14 @@
           </div>
           <div class="col-1"></div>
           <div class="col-4">
-            <FaqDetailCommandsComponent
-              :trained="trained"
-            ></FaqDetailCommandsComponent>
+            <FaqDetailCommandsComponent :trained="trained" :isDisabled="true"></FaqDetailCommandsComponent>
           </div>
         </div>
         <div class="row">
           <p></p>
         </div>
         <div v-for="(example, lang) in examples" :key="lang">
-          <FaqLanguageExamplesComponent
-            :displayLang="languages[lang]"
-            :examples="example"
-          ></FaqLanguageExamplesComponent>
+          <FaqLanguageExamplesComponent :displayLang="languages[lang]" :examples="example"></FaqLanguageExamplesComponent>
           <div class="row">
             <p></p>
           </div>
@@ -65,18 +60,22 @@ export default {
       id: "",
       urlFaq: global.config.server + global.config.endpoints["faq"],
       urlLang: global.config.server + global.config.endpoints["languages"],
-      mainQuestion: "",
-      examples: [],
+      mainQuestion: "[EDIT ME] This is the main question of the f.a.q.",
+      examples: {},
       trained: false,
       languages: {}
     };
+  },
+  watch: {
+    languages: function(val) {
+      this.createEmptyExamples();
+    }
   },
   created() {
     this.getDisplayLanguages();
   },
   mounted() {
     this.id = this.$route.params.id;
-    this.getFaqDetails();
 
     this.$eventHub.$on("changeTrainingStatus", this.changeTrainingStatus);
     this.$eventHub.$on("deleteExample", this.deleteExample);
@@ -92,7 +91,13 @@ export default {
       that.examples[langCode].push(obj.example);
     },
     changeTrainingStatus() {
-      this.trained = !this.trained;
+      this.trained = false;
+    },
+    createEmptyExamples() {
+      let that = this;
+      for (const [key, value] of Object.entries(that.languages)) {
+        this.examples[key] = [];
+      }
     },
     deleteExample(obj) {
       let that = this;
@@ -101,20 +106,7 @@ export default {
       if (index !== -1) that.examples[langCode].splice(index, 1);
     },
     async deleteFaq() {
-      var that = this;
-      var parameters = {
-        params: {
-          id: that.id
-        }
-      };
-      await axios
-        .delete(that.urlFaq, parameters)
-        .then(function() {
-          this.$router.push({ name: "Knowledge Base" });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.$router.push({ name: "Knowledge Base" });
     },
     async getDisplayLanguages() {
       let that = this;
@@ -134,22 +126,6 @@ export default {
           return key;
         }
       }
-    },
-    async getFaqDetails() {
-      let that = this;
-      await axios
-        .get(this.urlFaq, {
-          params: { id: that.id }
-        })
-        .then(function(response) {
-          that.mainQuestion = response.data.mainQuestion;
-          that.examples = response.data.examples;
-          that.id = response.data.id;
-          that.trained = response.data.trained;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
     },
     async saveFaq() {
       let that = this;

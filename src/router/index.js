@@ -6,6 +6,7 @@ import KBView from "../views/KBView.vue";
 import TrainingView from "../views/TrainingView.vue";
 import AboutView from "../views/AboutView.vue";
 import FaqDetailView from "../views/FaqDetailView.vue";
+import NewFaqView from "../views/NewFaqView.vue";
 
 Vue.use(VueRouter);
 
@@ -34,11 +35,17 @@ const routes = [
     path: "/faq/:id",
     name: "Faq details",
     component: FaqDetailView
+  },
+  {
+    path: "/faq/new",
+    name: "New faq",
+    component: NewFaqView
   }
 ];
 
 const router = new VueRouter({
-  routes
+  routes,
+  duplicateNavigationPolicy: 'ignore' // other options: 'ignore' and 'reject'
 });
 
 export default router;

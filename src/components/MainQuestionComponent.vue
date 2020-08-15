@@ -56,10 +56,6 @@ export default {
     text: {
       type: String,
       required: true
-    },
-    id: {
-      type: String,
-      required: true
     }
   },
   watch: {

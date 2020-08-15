@@ -61,7 +61,9 @@ export default {
   },
   methods: {
     createNewFaq() {
-      this.$router.push({ name: "Faq details", params: { id: "newFaq" } });
+      this.$router.push({ name: "New faq" }).catch(err => {
+        console.log(err);
+      });
     },
     async getFaqs() {
       let that = this;

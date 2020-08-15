@@ -104,10 +104,6 @@ export default {
     };
   },
   props: {
-    id: {
-      type: String,
-      required: true
-    },
     displayLang: {
       type: String,
       required: true
