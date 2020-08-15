@@ -69,7 +69,7 @@ export default {
     return {
       id: "",
       urlFaq: global.config.server + global.config.endpoints["faq"],
-      urlLang: global.config.server + global.config.endpoints["lang"],
+      urlLang: global.config.server + global.config.endpoints["languages"],
       mainQuestion: "",
       examples: [],
       trained: false,
@@ -126,7 +126,7 @@ export default {
       await axios
         .get(this.urlLang)
         .then(res => {
-          that.languages = res.data.languages;
+          that.languages = res.data;
         })
         .catch(err => {
           console.log(err);
