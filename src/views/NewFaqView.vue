@@ -49,7 +49,7 @@ import FaqDetailCommandsComponent from "./../components/FaqDetailCommandsCompone
 import FaqLanguageExamplesComponent from "./../components/FaqLanguageExamplesComponent.vue";
 
 export default {
-  name: "FaqDetailView",
+  name: "NewFaqView",
   components: {
     MainQuestionComponent,
     FaqDetailCommandsComponent,
@@ -57,7 +57,6 @@ export default {
   },
   data() {
     return {
-      id: "",
       urlFaq: global.config.server + global.config.endpoints["faq"],
       urlLang: global.config.server + global.config.endpoints["languages"],
       mainQuestion: "[EDIT ME] This is the main question of the f.a.q.",
@@ -75,8 +74,6 @@ export default {
     this.getDisplayLanguages();
   },
   mounted() {
-    this.id = this.$route.params.id;
-
     this.$eventHub.$on("changeTrainingStatus", this.changeTrainingStatus);
     this.$eventHub.$on("deleteExample", this.deleteExample);
     this.$eventHub.$on("deleteFaq", this.deleteFaq);
@@ -130,7 +127,6 @@ export default {
     async saveFaq() {
       let that = this;
       let body = {
-        id: that.id,
         mainQuestion: that.mainQuestion,
         examples: that.examples,
         trained: that.trained

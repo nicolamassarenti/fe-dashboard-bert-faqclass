@@ -48,13 +48,11 @@ export default {
   },
   data() {
     return {
-      urlKb: "",
+      urlKb: global.config.server + global.config.endpoints["kb"],
       faqs: []
     };
   },
   created() {
-    this.urlKb = global.config.server + global.config.endpoints["kb"];
-
     this.faqs = this.getFaqs();
 
     this.$eventHub.$on("createNewFaq", this.createNewFaq);

@@ -44,8 +44,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  routes,
-  duplicateNavigationPolicy: 'ignore' // other options: 'ignore' and 'reject'
+  routes
 });
 
 export default router;
