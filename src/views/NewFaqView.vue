@@ -21,14 +21,20 @@
           </div>
           <div class="col-1"></div>
           <div class="col-4">
-            <FaqDetailCommandsComponent :trained="trained" :isDisabled="true"></FaqDetailCommandsComponent>
+            <FaqDetailCommandsComponent
+              :trained="trained"
+              :isDisabled="true"
+            ></FaqDetailCommandsComponent>
           </div>
         </div>
         <div class="row">
           <p></p>
         </div>
         <div v-for="(example, lang) in examples" :key="lang">
-          <FaqLanguageExamplesComponent :displayLang="languages[lang]" :examples="example"></FaqLanguageExamplesComponent>
+          <FaqLanguageExamplesComponent
+            :displayLang="languages[lang]"
+            :examples="example"
+          ></FaqLanguageExamplesComponent>
           <div class="row">
             <p></p>
           </div>
@@ -66,7 +72,7 @@ export default {
     };
   },
   watch: {
-    languages: function(val) {
+    languages: function() {
       this.createEmptyExamples();
     }
   },
@@ -92,8 +98,9 @@ export default {
     },
     createEmptyExamples() {
       let that = this;
-      for (const [key, value] of Object.entries(that.languages)) {
-        this.examples[key] = [];
+      that.examples = {};
+      for (var key in that.languages) {
+        that.examples[key] = [];
       }
     },
     deleteExample(obj) {
