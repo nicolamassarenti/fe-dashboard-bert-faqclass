@@ -62,7 +62,7 @@ export default {
 
     this.$eventHub.$on("deleteFaq", this.deleteFaq);
     this.$eventHub.$on("changeTrainingStatus", this.changeTrainingStatus);
-    this.$eventHub.$on("faqDetails", this.getFaqDetails);
+    this.$eventHub.$on("faqDetails", this.faqDetails);
   },
   methods: {
     async changeTrainingStatus(data) {
