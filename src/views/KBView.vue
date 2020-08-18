@@ -87,7 +87,7 @@ export default {
       await axios
         .delete(that.urlFaq, parameters)
         .then(function() {
-          this.kb = this.getKb();
+          that.kb = that.getKb();
         })
         .catch(err => {
           console.log(err);

@@ -65,24 +65,21 @@ export default {
     }
   },
   created() {
-    let that = this;
-    that.trained = that.toTrain;
+    this.trained = this.toTrain;
   },
   methods: {
     async changeTrainingStatus() {
-      let that = this;
-      var newTrainingStatus = !that.trained;
+      var newTrainingStatus = !this.trained;
       var data = {
-        id: that.id,
+        id: this.id,
         toTrain: newTrainingStatus
       };
       this.$eventHub.$emit("changeTrainingStatus", data);
-      that.trained = newTrainingStatus;
+      this.trained = newTrainingStatus;
     },
     async deleteFaq() {
-      var that = this;
       var data = {
-        id: that.id
+        id: this.id
       };
       this.$eventHub.$emit("deleteFaq", data);
     },
