@@ -109,7 +109,11 @@ export default {
         });
     },
     async faqDetails(data) {
-      this.$router.push({ name: "Faq details", query: data });
+      this.$router
+        .push({ name: "Faq details", query: data })        
+        .catch(err => {
+          console.log(err);
+        });;
     }
   }
 };

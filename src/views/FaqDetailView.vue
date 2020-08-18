@@ -75,7 +75,7 @@ export default {
     this.getDisplayLanguages();
   },
   mounted() {
-    this.id = this.$route.params.id;
+    this.id = this.$route.query.id;
     this.getFaqDetails();
 
     this.$eventHub.$on("changeTrainingStatus", this.changeTrainingStatus);
@@ -137,9 +137,10 @@ export default {
     },
     async getFaqDetails() {
       let that = this;
+      let data = { id: that.id }
       await axios
         .get(this.urlFaq, {
-          params: { id: that.id }
+          params: data
         })
         .then(function(response) {
           that.mainQuestion = response.data.mainQuestion;
