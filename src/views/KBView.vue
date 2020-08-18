@@ -19,7 +19,7 @@
         <div class="row">
           <p></p>
         </div>
-        <div v-for="(faq, index) in faqs" :key="index">
+        <div v-for="(faq, index) in kb" :key="index">
           <FaqPreviewComponent
             :id="faq.id"
             :mainQuestion="faq.mainQuestion"
@@ -49,21 +49,51 @@ export default {
   data() {
     return {
       urlKb: global.config.server + global.config.endpoints["kb"],
-      faqs: []
+      urlFaq: global.config.server + global.config.endpoints["faq"],
+      urlTrainingFaq:
+        global.config.server + global.config.endpoints["trainingFaq"],
+      kb: []
     };
   },
   created() {
-    this.faqs = this.getFaqs();
+    this.kb = this.getKb();
 
     this.$eventHub.$on("createNewFaq", this.createNewFaq);
+
+    this.$eventHub.$on("deleteFaq", this.deleteFaq);
+    this.$eventHub.$on("changeTrainingStatus", this.changeTrainingStatus);
+    this.$eventHub.$on("faqDetails", this.getFaqDetails);
   },
   methods: {
+    async changeTrainingStatus(data) {
+      var parameters = {
+        params: data
+      };
+      let that = this;
+      await axios.put(that.urlTrainingFaq, null, parameters).catch(err => {
+        console.log(err);
+      });
+    },
     createNewFaq() {
       this.$router.push({ name: "New faq" }).catch(err => {
         console.log(err);
       });
     },
-    async getFaqs() {
+    async deleteFaq(data) {
+      var parameters = {
+        params: data
+      };
+      let that = this;
+      await axios
+        .delete(that.urlFaq, parameters)
+        .then(function() {
+          this.kb = this.getKb();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    async getKb() {
       let that = this;
       await axios
         .get(that.urlKb, {
@@ -72,11 +102,14 @@ export default {
           }
         })
         .then(function(response) {
-          that.faqs = response.data.kb;
+          that.kb = response.data.kb;
         })
         .catch(function(error) {
           console.log(error);
         });
+    },
+    async faqDetails(data) {
+      this.$router.push({ name: "Faq details", query: data });
     }
   }
 };

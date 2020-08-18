@@ -38,8 +38,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "FaqPreviewComponent",
   components: {},
@@ -49,9 +47,6 @@ export default {
         true: "btn btn-outline-success",
         false: "btn btn-outline-dark"
       },
-      urlFaq: global.config.server + global.config.endpoints["faq"],
-      urlTrainingFaq:
-        global.config.server + global.config.endpoints["trainingFaq"],
       trained: false
     };
   },
@@ -75,42 +70,25 @@ export default {
   },
   methods: {
     async changeTrainingStatus() {
-      var that = this;
+      let that = this;
       var newTrainingStatus = !that.trained;
-
-      var parameters = {
-        params: {
-          id: that.id,
-          toTrain: newTrainingStatus
-        }
+      var data = {
+        id: that.id,
+        toTrain: newTrainingStatus
       };
-      await axios
-        .put(that.urlTrainingFaq, null, parameters)
-        .then(function() {
-          that.trained = newTrainingStatus;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.$eventHub.$emit("changeTrainingStatus", data);
+      that.trained = newTrainingStatus;
     },
     async deleteFaq() {
       var that = this;
-      var parameters = {
-        params: {
-          id: that.id
-        }
+      var data = {
+        id: that.id
       };
-      await axios
-        .delete(that.urlFaq, parameters)
-        .then(function() {
-          this.$router.push({ name: "Knowledge Base" });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.$eventHub.$emit("deleteFaq", data);
     },
     async getFaqDetails() {
-      this.$router.push({ name: "Faq details", params: { id: this.id } });
+      var data = { id: this.id };
+      this.$eventHub.$emit("faqDetails", data);
     }
   }
 };
