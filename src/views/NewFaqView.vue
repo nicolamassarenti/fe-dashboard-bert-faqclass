@@ -97,11 +97,12 @@ export default {
       this.trained = false;
     },
     createEmptyExamples() {
-      let that = this;
-      that.examples = {};
-      for (var key in that.languages) {
-        that.examples[key] = [];
+      var examples = {};
+      var keys = Object.keys(this.languages);
+      for (var i = 0; i < keys.length; i++) {
+          examples[keys[i]] = [];
       }
+      this.examples = examples;
     },
     deleteExample(obj) {
       let that = this;
