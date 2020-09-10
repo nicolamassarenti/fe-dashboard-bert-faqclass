@@ -143,7 +143,7 @@ export default {
           }
         })
         .then(function() {
-          this.$router.push({ name: "Knowledge Base" });
+          that.$router.push({ name: "Knowledge Base" });
         })
         .catch(err => {
           console.log(err);
