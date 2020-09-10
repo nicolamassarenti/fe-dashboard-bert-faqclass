@@ -2,13 +2,20 @@
   <div class="card" style="height: 100%">
     <div class="card-body d-flex align-items-end" style="height: 100%">
       <div class="row" style="width: 100%;">
+        <div v-if="saveDisabled">
+          <div class="alert alert-danger" role="alert">
+            In order to save the F.A.Q. you must add an example for each
+            language.
+          </div>
+        </div>
+        <div v-else></div>
         <div class="col-4">
           <button
             type="button"
             style="height: 100%; width:100%;"
             :class="classButtonTrained[trained]"
             v-on:click="changeTrainingStatus()"
-            :disabled="isDisabled"
+            :disabled="isTrainingDisabled"
           >
             <i class="fas fa-brain"></i><br />{{ trainingStatusText[trained] }}
           </button>
@@ -29,6 +36,7 @@
             style="height: 100%; width:100%;"
             class="btn btn-outline-success"
             v-on:click="saveFaq()"
+            :disabled="saveDisabled"
           >
             <i class="fas fa-save"></i><br />Save
           </button>
@@ -40,16 +48,25 @@
 
 <script>
 export default {
-  name: "FaqDetailCommandsComponent",
+  name: "FaqCommandsComponent",
   props: {
     trained: {
       type: Boolean,
       required: true
     },
-    isDisabled: {
+    isTrainingDisabled: {
       type: Boolean,
       default: false,
       required: false
+    },
+    emitToken: {
+      type: String,
+      default: "saveFaq"
+    },
+    saveDisabled: {
+      type: Boolean,
+      required: true,
+      default: false
     }
   },
   data() {
@@ -75,7 +92,7 @@ export default {
       this.$eventHub.$emit("deleteFaq");
     },
     saveFaq() {
-      this.$eventHub.$emit("saveFaq");
+      this.$eventHub.$emit(this.emitToken);
     }
   }
 };

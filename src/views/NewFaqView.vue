@@ -21,10 +21,12 @@
           </div>
           <div class="col-1"></div>
           <div class="col-4">
-            <FaqDetailCommandsComponent
+            <FaqCommandsComponent
               :trained="trained"
-              :isDisabled="true"
-            ></FaqDetailCommandsComponent>
+              :isTrainingDisabled="true"
+              :emitToken="emitSaveFaqToken"
+              :saveDisabled="alert"
+            ></FaqCommandsComponent>
           </div>
         </div>
         <div class="row">
@@ -51,14 +53,14 @@
 <script>
 import axios from "axios";
 import MainQuestionComponent from "./../components/MainQuestionComponent.vue";
-import FaqDetailCommandsComponent from "./../components/FaqDetailCommandsComponent.vue";
+import FaqCommandsComponent from "./../components/FaqCommandsComponent.vue";
 import FaqLanguageExamplesComponent from "./../components/FaqLanguageExamplesComponent.vue";
 
 export default {
   name: "NewFaqView",
   components: {
     MainQuestionComponent,
-    FaqDetailCommandsComponent,
+    FaqCommandsComponent,
     FaqLanguageExamplesComponent
   },
   data() {
@@ -68,12 +70,17 @@ export default {
       mainQuestion: "[EDIT ME] This is the main question of the f.a.q.",
       examples: {},
       trained: false,
-      languages: {}
+      languages: {},
+      emitSaveFaqToken: "saveNewFaq",
+      alert: false
     };
   },
   watch: {
-    languages: function() {
-      this.createEmptyExamples();
+    examples: {
+      handler: function() {
+        this.correctnessCheck();
+      },
+      deep: true
     }
   },
   created() {
@@ -85,7 +92,18 @@ export default {
     this.$eventHub.$on("deleteFaq", this.deleteFaq);
     this.$eventHub.$on("newExample", this.addNewExample);
     this.$eventHub.$on("newMainQuestion", this.setNewMainQuestion);
-    this.$eventHub.$on("saveFaq", this.saveFaq);
+    this.$eventHub.$on(this.emitSaveFaqToken, this.saveFaq);
+  },
+  beforeDestroy() {
+    this.$eventHub.$off(
+      "changeTrainingStatusDetail",
+      this.changeTrainingStatus
+    );
+    this.$eventHub.$off("deleteExample", this.deleteExample);
+    this.$eventHub.$off("deleteFaq", this.deleteFaq);
+    this.$eventHub.$off("newExample", this.addNewExample);
+    this.$eventHub.$off("newMainQuestion", this.setNewMainQuestion);
+    this.$eventHub.$off(this.emitSaveFaqToken, this.saveFaq);
   },
   methods: {
     addNewExample(obj) {
@@ -94,13 +112,21 @@ export default {
       that.examples[langCode].push(obj.example);
     },
     changeTrainingStatus() {
-      this.trained = false;
+      this.trained = !this.trained;
+    },
+    correctnessCheck() {
+      for (let lang in this.examples) {
+        if (this.examples[lang].length == 0) {
+          this.alert = true;
+          return;
+        }
+      }
+      this.alert = false;
     },
     createEmptyExamples() {
       var examples = {};
-      var keys = Object.keys(this.languages);
-      for (var i = 0; i < keys.length; i++) {
-          examples[keys[i]] = [];
+      for (var key in this.languages) {
+        examples[key] = [];
       }
       this.examples = examples;
     },
@@ -119,6 +145,7 @@ export default {
         .get(this.urlLang)
         .then(res => {
           that.languages = res.data;
+          this.createEmptyExamples();
         })
         .catch(err => {
           console.log(err);
@@ -133,21 +160,24 @@ export default {
       }
     },
     async saveFaq() {
-      let that = this;
-      let body = {
-        mainQuestion: that.mainQuestion,
-        examples: that.examples,
-        trained: that.trained
-      };
-
-      await axios
-        .post(this.urlFaq, body)
-        .then(function() {
-          that.$router.push({ name: "Knowledge Base" });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      this.correctnessCheck();
+      if (!this.alert) {
+        let that = this;
+        this.changeTrainingStatus();
+        let body = {
+          mainQuestion: that.mainQuestion,
+          examples: that.examples,
+          trained: that.trained
+        };
+        await axios
+          .post(this.urlFaq, body)
+          .then(function() {
+            that.$router.push({ name: "Knowledge Base" });
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     },
     setNewMainQuestion(question) {
       let that = this;

@@ -55,14 +55,20 @@ export default {
       kb: []
     };
   },
-  created() {
-    this.kb = this.getKb();
-
+  mounted() {
     this.$eventHub.$on("createNewFaq", this.createNewFaq);
-
     this.$eventHub.$on("deleteFaq", this.deleteFaq);
     this.$eventHub.$on("changeTrainingStatus", this.changeTrainingStatus);
     this.$eventHub.$on("faqDetails", this.faqDetails);
+  },
+  created() {
+    this.kb = this.getKb();
+  },
+  beforeDestroy() {
+    this.$eventHub.$off("createNewFaq");
+    this.$eventHub.$off("deleteFaq");
+    this.$eventHub.$off("changeTrainingStatus");
+    this.$eventHub.$off("faqDetails");
   },
   methods: {
     async changeTrainingStatus(data) {
@@ -109,11 +115,9 @@ export default {
         });
     },
     async faqDetails(data) {
-      this.$router
-        .push({ name: "Faq details", query: data })        
-        .catch(err => {
-          console.log(err);
-        });;
+      this.$router.push({ name: "Faq details", query: data }).catch(err => {
+        console.log(err);
+      });
     }
   }
 };
