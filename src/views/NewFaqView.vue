@@ -80,7 +80,7 @@ export default {
     this.getDisplayLanguages();
   },
   mounted() {
-    this.$eventHub.$on("changeTrainingStatus", this.changeTrainingStatus);
+    this.$eventHub.$on("changeTrainingStatusDetail", this.changeTrainingStatus);
     this.$eventHub.$on("deleteExample", this.deleteExample);
     this.$eventHub.$on("deleteFaq", this.deleteFaq);
     this.$eventHub.$on("newExample", this.addNewExample);

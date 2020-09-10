@@ -78,7 +78,7 @@ export default {
     this.id = this.$route.query.id;
     this.getFaqDetails();
 
-    this.$eventHub.$on("changeTrainingStatus", this.changeTrainingStatus);
+    this.$eventHub.$on("changeTrainingStatusDetail", this.changeTrainingStatus);
     this.$eventHub.$on("deleteExample", this.deleteExample);
     this.$eventHub.$on("deleteFaq", this.deleteFaq);
     this.$eventHub.$on("newExample", this.addNewExample);
@@ -145,7 +145,6 @@ export default {
         .then(function(response) {
           that.mainQuestion = response.data.mainQuestion;
           that.examples = response.data.examples;
-          that.id = response.data.id;
           that.trained = response.data.trained;
         })
         .catch(function(error) {
@@ -155,14 +154,16 @@ export default {
     async saveFaq() {
       let that = this;
       let body = {
-        id: that.id,
         mainQuestion: that.mainQuestion,
         examples: that.examples,
         trained: that.trained
       };
-
+      let data = { id: that.id }
+      console.log(data);
       await axios
-        .post(this.urlFaq, body)
+        .put(this.urlFaq, body, {
+          params: data
+        })
         .then(function() {
           that.$router.push({ name: "Knowledge Base" });
         })

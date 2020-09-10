@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     changeTrainingStatus() {
-      this.$eventHub.$emit("changeTrainingStatus");
+      this.$eventHub.$emit("changeTrainingStatusDetail");
     },
     deleteFaq() {
       this.$eventHub.$emit("deleteFaq");
