@@ -106,7 +106,8 @@ export default {
   props: {
     displayLang: {
       type: String,
-      required: true
+      required: true,
+      default: ""
     },
     examples: {
       type: Array,

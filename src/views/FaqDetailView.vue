@@ -159,7 +159,6 @@ export default {
         trained: that.trained
       };
       let data = { id: that.id }
-      console.log(data);
       await axios
         .put(this.urlFaq, body, {
           params: data
