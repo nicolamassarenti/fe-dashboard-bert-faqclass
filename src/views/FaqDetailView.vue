@@ -129,7 +129,11 @@ export default {
     addNewExample(obj) {
       let that = this;
       let langCode = this.getLangCodeByDisplayLang(obj.displayLang);
-      that.examples[langCode].push(obj.example);
+      if(that.showTrainingExamples){
+        that.examples[langCode].push(obj.example);
+      } else{
+        that.answers[langCode].push(obj.example);
+      }
     },
     changeTrainingStatus() {
       this.trained = !this.trained;
@@ -146,8 +150,16 @@ export default {
     deleteExample(obj) {
       let that = this;
       let langCode = this.getLangCodeByDisplayLang(obj.displayLang);
-      var index = that.examples[langCode].indexOf(obj.example);
-      if (index !== -1) that.examples[langCode].splice(index, 1);
+      
+      var target;
+      if(that.showTrainingExamples){
+        target = that.examples;
+      } else{
+        target = that.answers;
+      }
+
+      var index = target[langCode].indexOf(obj.example);
+      if (index !== -1) target[langCode].splice(index, 1);
     },
     async deleteFaq() {
       var that = this;
@@ -229,6 +241,7 @@ export default {
       that.mainQuestion = question;
     },
     showSentenceDetail(detail) {
+      this.showTrainingExamples = !this.showTrainingExamples;
       if (detail == "answers") {
         this.listStrings = this.answers;
       } else {
