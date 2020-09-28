@@ -31,7 +31,15 @@
         <div class="row">
           <p></p>
         </div>
-        <div v-for="(example, lang) in examples" :key="lang">
+        <div class="row">
+          <div class="col-4">
+            <SwitcherComponent></SwitcherComponent>
+          </div>
+        </div>
+        <div class="row">
+          <p></p>
+        </div>
+        <div v-for="(example, lang) in listStrings" :key="lang">
           <div v-if="example !== null">
             <FaqLanguageExamplesComponent
               :displayLang="languages[lang]"
@@ -56,13 +64,15 @@ import axios from "axios";
 import MainQuestionComponent from "./../components/MainQuestionComponent.vue";
 import FaqCommandsComponent from "./../components/FaqCommandsComponent.vue";
 import FaqLanguageExamplesComponent from "./../components/FaqLanguageExamplesComponent.vue";
+import SwitcherComponent from "./../components/SwitcherTrainingAnswerComponent.vue";
 
 export default {
   name: "FaqDetailView",
   components: {
     MainQuestionComponent,
     FaqCommandsComponent,
-    FaqLanguageExamplesComponent
+    FaqLanguageExamplesComponent,
+    SwitcherComponent
   },
   data() {
     return {
@@ -71,10 +81,13 @@ export default {
       urlLang: global.config.server + global.config.endpoints["languages"],
       mainQuestion: "",
       examples: [],
+      answers: [],
+      listStrings: [],
       trained: false,
       languages: {},
       emitSaveFaqToken: "saveFaq",
-      alert: false
+      alert: false,
+      showTrainingExamples: true
     };
   },
   created() {
@@ -90,6 +103,7 @@ export default {
     this.$eventHub.$on("newExample", this.addNewExample);
     this.$eventHub.$on("newMainQuestion", this.setNewMainQuestion);
     this.$eventHub.$on(this.emitSaveFaqToken, this.saveFaq);
+    this.$eventHub.$on("showSentenceDetail", this.showSentenceDetail);
   },
   beforeDestroy() {
     this.$eventHub.$off(
@@ -101,6 +115,7 @@ export default {
     this.$eventHub.$off("newExample", this.addNewExample);
     this.$eventHub.$off("newMainQuestion", this.setNewMainQuestion);
     this.$eventHub.$off(this.emitSaveFaqToken, this.saveFaq);
+    this.$eventHub.$off("showSentenceDetail", this.showSentenceDetail);
   },
   watch: {
     examples: {
@@ -179,6 +194,8 @@ export default {
           that.mainQuestion = response.data.mainQuestion;
           that.examples = response.data.examples;
           that.trained = response.data.trained;
+          that.answers = response.data.answers;
+          that.listStrings = that.examples;
         })
         .catch(function(error) {
           console.log(error);
@@ -191,7 +208,8 @@ export default {
         let body = {
           mainQuestion: that.mainQuestion,
           examples: that.examples,
-          trained: that.trained
+          trained: that.trained,
+          answers: that.answers
         };
         let data = { id: that.id };
         await axios
@@ -209,6 +227,13 @@ export default {
     setNewMainQuestion(question) {
       let that = this;
       that.mainQuestion = question;
+    },
+    showSentenceDetail(detail) {
+      if (detail == "answers") {
+        this.listStrings = this.answers;
+      } else {
+        this.listStrings = this.examples;
+      }
     }
   }
 };

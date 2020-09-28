@@ -17,7 +17,7 @@
                   {{ example }}
                   <button
                     type="button"
-                    class="btn btn-outline-danger"
+                    class="btn btn-outline-danger  ml-2"
                     v-on:click="deleteExample(example)"
                   >
                     <i class="fas fa-trash fa-xs"></i>
