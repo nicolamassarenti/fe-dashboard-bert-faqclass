@@ -23,4 +23,6 @@ gcloud run deploy \
     --image ${REMOTE_IMAGE} \
     --service-account ${SERVICE_ACCOUNT} \
     --memory 200M \
+    --port 80 \
+    --concurrency 2 \
     --allow-unauthenticated

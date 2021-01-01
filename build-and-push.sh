@@ -12,7 +12,7 @@ REMOTE_IMAGE=${SOURCE_IMAGE}
 HOSTNAME=eu.gcr.io
 
 # Building docker image
-docker build --file ./containers/Dockerfile --tag ${SOURCE_IMAGE} .
+docker build --tag ${SOURCE_IMAGE} .
 
 # Pushing image to Google Container Registry
 docker tag ${SOURCE_IMAGE} ${HOSTNAME}/${PROJECT_ID}/${REMOTE_IMAGE}
