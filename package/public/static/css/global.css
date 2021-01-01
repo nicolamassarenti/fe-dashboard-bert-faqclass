@@ -1,0 +1,42 @@
+:root{
+	/* 	https://colorhunt.co/palette/22272 */
+	--dark-heading-color: #112d4e;
+	--light-heading-color: #3f72af;
+	--dark-background-color: #dbe2ef;
+	--light-background-color: #f9f7f7;
+	--white: #ffffff;
+}
+#app {
+    height: 100vh;
+	font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+	background-color: var(--light-background-color);
+}
+body{	
+	background-color: var(--light-background-color);
+	min-height: 100% !important;
+	height: 100%;
+}
+.center{
+	align-content: center;
+	vertical-align: middle;
+}
+.color-green{
+	color: green;
+}
+.color-gray{
+	color: var(--dark-heading-color);
+}
+.margin-side-3{
+	margin-left: 3px;
+	margin-right: 3px;
+}
+.navbar-link-unselected{
+    color: var(--light-background-color);
+}
+.navbar-link-selected{
+    color: var(--light-heading-color);
+}
+.navbar-style{
+    background-color: var(--dark-heading-color);
+    font-size: medium;
+}
