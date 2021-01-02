@@ -15,14 +15,13 @@
       <div class="col-1"></div>
       <div class="col-10">
         <div class="row">
-          <div class="col-5">
+          <div class="col-4">
             <div class="card w-100" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">Knowledge Base</h5>
                 <h6 class="card-subtitle mb-2 text-muted">KB</h6>
                 <p class="card-text">
-                  Set up and manage the faqs and the examples. Make the chatbot
-                  to learn.
+                  Set up and manage the faqs and the examples.
                 </p>
                 <router-link to="/kb"
                   >Go to the Knowledge base panel</router-link
@@ -30,8 +29,21 @@
               </div>
             </div>
           </div>
-          <div class="col-2"></div>
-          <div class="col-5">
+          <div class="col-4">
+            <div class="card w-100" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Keywords</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Keywords</h6>
+                <p class="card-text">
+                  Set up and manage the keywords knwon by the chatbot.
+                </p>
+                <router-link to="/keyword"
+                  >Go to the keywords panel</router-link
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
             <div class="card w-100" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">Training Panel</h5>
