@@ -5,6 +5,7 @@
         "faq": "/faq",
         "trainingModel": "/training/model",
         "trainingFaq": "/training/faq",
-        "languages": "/lang"
+        "languages": "/lang",
+        "keyword": "/keyword"
     }
 }

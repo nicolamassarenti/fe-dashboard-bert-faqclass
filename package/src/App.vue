@@ -26,6 +26,11 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link id="keyword" to="/keyword">
+              <span :class="getClass('Keywords')">Keywords</span>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link id="training" to="/training">
               <span :class="getClass('Training')">Training</span>
             </router-link>

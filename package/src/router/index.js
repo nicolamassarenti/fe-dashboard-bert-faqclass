@@ -7,6 +7,7 @@ import TrainingView from "../views/TrainingView.vue";
 import AboutView from "../views/AboutView.vue";
 import FaqDetailView from "../views/FaqDetailView.vue";
 import NewFaqView from "../views/NewFaqView.vue";
+import KeywordsView from "../views/KeywordsView.vue";
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,11 @@ const routes = [
     path: "/faq/new",
     name: "New faq",
     component: NewFaqView
+  },
+  {
+    path: "/keyword",
+    name: "Keywords",
+    component: KeywordsView
   }
 ];
 
