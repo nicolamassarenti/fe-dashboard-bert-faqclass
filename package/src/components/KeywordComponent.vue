@@ -3,16 +3,22 @@
     <div class="card faq-card">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-7 card-body">
+          <div v-if="!edit" class="col-7 card-body">
             <span>{{ keyword }}</span>
           </div>
+          <div v-else class="col-7 card-body">
+            <input
+              type="text"
+              class="form-control"
+              aria-label="Default"
+              aria-describedby="inputGroup-sizing-default"
+              v-model="keyword"
+            />
+          </div>
           <div class="col-5">
-            <div v-if="!edit" class="main-question-edit-container">
-              <button
-                class="btn btn-outline-warning"
-                v-on:click="editKeyword()"
-              >
-                <i class="fas fa-edit"></i>
+            <div class="main-question-edit-container">
+              <button :class="btn_classes[edit]" v-on:click="modifySave()">
+                <i :class="font_awesome_classes[edit]"></i>
               </button>
               <button
                 class="btn btn-outline-danger"
@@ -33,7 +39,17 @@ export default {
   name: "KeywordComponent",
   components: {},
   data() {
-    return {};
+    return {
+      edit: false,
+      font_awesome_classes: {
+        true: "fas fa-check",
+        false: "fas fa-edit",
+      },
+      btn_classes: {
+        true: "btn btn-outline-success",
+        false: "btn btn-outline-warning",
+      },
+    };
   },
   props: {
     id: {
@@ -53,7 +69,14 @@ export default {
       };
       this.$eventHub.$emit("deleteKeyword", data);
     },
-    editKeyword() {},
+    modifySave() {
+      var data = {
+        id: this.id,
+        keyword: this.keyword,
+      };
+      this.$eventHub.$emit("edit", data);
+      this.edit = !this.edit;
+    },
   },
 };
 </script>
