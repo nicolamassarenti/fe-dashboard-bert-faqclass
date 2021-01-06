@@ -19,6 +19,34 @@
 		<div class="row">
 		  <p></p>
 		</div>
+		<div v-if="creating">
+			<div class="row">
+					<div class="col-4">
+					</div>
+					<div class="col-3">
+						<input
+							type="text"
+							class="form-control"
+							aria-label="Default"
+							aria-describedby="inputGroup-sizing-default"
+							v-model="newKeyword"
+						/>
+					</div>
+					<div class="col-1 main-question-edit-container">
+						<button class="btn btn-outline-success" v-on:click="keywordCreated()">
+							<i class="fas fa-check"></i>
+						</button>
+						<button class="btn btn-outline-danger" v-on:click="resetKeywordCreation()">
+							<i class="fas fa-trash"></i>
+						</button>
+					</div>
+					<div class="col-4">
+					</div>
+			</div>
+			<div class="row">
+				<p></p>
+			</div>
+		</div>
 		<div v-for="(item, index) in keywords" :key="index">
 		  <div class="row">
 			<div class="col-3">
@@ -70,6 +98,8 @@ export default {
   data() {
 	return {
 	  urlKeywords: global.config.server + global.config.endpoints["keyword"],
+	  creating: false,
+	  newKeyword: "New keyword",
 	  keywords: [
 		[
 		  {
@@ -136,7 +166,28 @@ export default {
 		  console.log(error);
 		});
 	},
-	createKeyword(data) {},
+	createKeyword() {
+		this.creating = true;
+	},
+	resetKeywordCreation(){
+		this.creating = false;
+		this.newKeyword = "New keyword"
+	},
+	async keywordCreated(){
+		let that = this;
+        let body = {
+          keyword: this.newKeyword
+        };
+		await axios
+          .post(this.urlKeywords, body)
+          .then(function() {
+			that.resetKeywordCreation();
+            that.getKeywords();
+          })
+          .catch(function(error) {
+            console.log(error);
+		  });
+	},
 	async deleteKeyword(data) {
 	  var parameters = {
 		params: data,

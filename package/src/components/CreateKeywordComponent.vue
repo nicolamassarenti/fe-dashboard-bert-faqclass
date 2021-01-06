@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     createNewKeyword() {
-      this.$eventHub.$emit("createNewKeyword");
+      this.$eventHub.$emit("createKeyword");
     }
   }
 };
