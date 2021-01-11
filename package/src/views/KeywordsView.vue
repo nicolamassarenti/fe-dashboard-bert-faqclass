@@ -100,41 +100,7 @@ export default {
 	  urlKeywords: global.config.server + global.config.endpoints["keyword"],
 	  creating: false,
 	  newKeyword: "New keyword",
-	  keywords: [
-		[
-		  {
-			id: "123",
-			keyword: "Pippo",
-		  },
-		  {
-			id: "456",
-			keyword: "Pluto",
-		  },
-		  {
-			id: "22",
-			keyword: "Alan",
-		  },
-		  {},
-		],
-		[
-		  {
-			id: "123",
-			keyword: "Pippo",
-		  },
-		  {
-			id: "456",
-			keyword: "Pluto",
-		  },
-		  {
-			id: "22",
-			keyword: "Alan",
-		  },
-		  {
-			id: "22",
-			keyword: "Asd",
-		  },
-		],
-	  ],
+	  keywords: [],
 	};
   },
   mounted() {
@@ -143,7 +109,7 @@ export default {
 	this.$eventHub.$on("editKeyword", this.editKeyword);
   },
   created() {
-	//this.keywords = this.getKeywords()
+	this.getKeywords();
   },
   beforeDestroy() {
 	this.$eventHub.$off("createKeyword", this.createKeyword);
@@ -160,7 +126,18 @@ export default {
 		  },
 		})
 		.then(function (response) {
-		  that.keywords = response.data.keywords;
+			var newArr = []
+			while(response.data.keywords.length) newArr.push(response.data.keywords.splice(0,4));
+			console.log(newArr)
+			let missingObjects;
+			for(let i =0; i<newArr.length; i++){
+				missingObjects = 4 - newArr[i].length
+				for(let j = 0; j < missingObjects; j++){
+					newArr[i].push({})
+				}
+			}
+			console.log(newArr)
+			that.keywords = newArr;
 		})
 		.catch(function (error) {
 		  console.log(error);
