@@ -12,7 +12,7 @@
 							class="form-control"
 							aria-label="Default"
 							aria-describedby="inputGroup-sizing-default"
-							v-model="keyword"
+							v-model="propValue"
 						/>
 					</div>
 					<div class="col-5">
@@ -49,6 +49,7 @@ export default {
 				true: "btn btn-outline-success",
 				false: "btn btn-outline-warning",
 			},
+			propValue: ""
 		};
 	},
 	props: {
@@ -61,7 +62,9 @@ export default {
 			required: false,
 		},
 	},
-	created() {},
+	created() {
+		this.propValue = keyword;
+	},
 	methods: {
 		deleteKeyword() {
 			var data = {
@@ -72,7 +75,7 @@ export default {
 		modifySave() {
 			var data = {
 				id: this.id,
-				keyword: this.keyword,
+				keyword: this.propValue,
 			};
 			this.$eventHub.$emit("editKeyword", data);
 			this.edit = !this.edit;

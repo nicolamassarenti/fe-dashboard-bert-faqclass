@@ -128,7 +128,6 @@ export default {
 		.then(function (response) {
 			var newArr = []
 			while(response.data.keywords.length) newArr.push(response.data.keywords.splice(0,4));
-			console.log(newArr)
 			let missingObjects;
 			for(let i =0; i<newArr.length; i++){
 				missingObjects = 4 - newArr[i].length
@@ -136,7 +135,6 @@ export default {
 					newArr[i].push({})
 				}
 			}
-			console.log(newArr)
 			that.keywords = newArr;
 		})
 		.catch(function (error) {
@@ -173,8 +171,7 @@ export default {
 	  await axios
 		.delete(that.urlKeywords, parameters)
 		.then(function () {
-		  conosle.log("A");
-		  //that.keywords = that.getKeywords();
+		  that.keywords = that.getKeywords();
 		})
 		.catch((err) => {
 		  console.log(err);
@@ -187,6 +184,9 @@ export default {
 	  let that = this;
 	  await axios
 		.put(that.urlKeywords, null, parameters)
+		.then(function () {
+		  that.keywords = that.getKeywords();
+		})
 		.catch((err) => {
 		  console.log(err);
 		});
