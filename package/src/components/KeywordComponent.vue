@@ -75,7 +75,7 @@ export default {
 		modifySave() {
 			var data = {
 				id: this.id,
-				keyword: this.propValue,
+				value: this.propValue,
 			};
 			this.$eventHub.$emit("editKeyword", data);
 			this.edit = !this.edit;
