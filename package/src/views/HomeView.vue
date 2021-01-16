@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid home-view">
-    <div class="row"><p></p></div>
+    <div class="row" style="height: 100px"><p></p></div>
     <div class="row">
       <div class="col-1"></div>
       <div class="col-10 d-flex justify-content-center">
-        <h2>Welcome in the admin page</h2>
+        <h2>Welcome in the dashboard control panel</h2>
       </div>
       <div class="col-1"></div>
     </div>
