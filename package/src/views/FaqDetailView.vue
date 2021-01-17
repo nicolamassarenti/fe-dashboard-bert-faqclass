@@ -103,19 +103,16 @@ export default {
     this.$eventHub.$on("newExample", this.addNewExample);
     this.$eventHub.$on("newMainQuestion", this.setNewMainQuestion);
     this.$eventHub.$on(this.emitSaveFaqToken, this.saveFaq);
-    this.$eventHub.$on("showSentenceDetail", this.showSentenceDetail);
+    this.$eventHub.$on("showExamplesAnswers", this.switchExampleAnswers);
   },
   beforeDestroy() {
-    this.$eventHub.$off(
-      "changeTrainingStatusDetail",
-      this.changeTrainingStatus
-    );
+    this.$eventHub.$off("changeTrainingStatusDetail", this.changeTrainingStatus);
     this.$eventHub.$off("deleteExample", this.deleteExample);
     this.$eventHub.$off("deleteFaq", this.deleteFaq);
     this.$eventHub.$off("newExample", this.addNewExample);
     this.$eventHub.$off("newMainQuestion", this.setNewMainQuestion);
     this.$eventHub.$off(this.emitSaveFaqToken, this.saveFaq);
-    this.$eventHub.$off("showSentenceDetail", this.showSentenceDetail);
+    this.$eventHub.$off("showExamplesAnswers", this.switchExampleAnswers);
   },
   watch: {
     examples: {
@@ -240,7 +237,7 @@ export default {
       let that = this;
       that.mainQuestion = question;
     },
-    showSentenceDetail(detail) {
+    switchExampleAnswers(detail) {
       this.showTrainingExamples = !this.showTrainingExamples;
       if (detail == "answers") {
         this.listStrings = this.answers;

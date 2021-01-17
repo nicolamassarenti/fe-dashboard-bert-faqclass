@@ -40,7 +40,7 @@ export default {
       if (this.showTrainingExamples) {
         detail = "trainingExamples";
       }
-      this.$eventHub.$emit("showSentenceDetail", detail);
+      this.$eventHub.$emit("showExamplesAnswers", detail);
     }
   }
 };
