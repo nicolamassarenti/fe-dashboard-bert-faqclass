@@ -5,6 +5,8 @@
 
 Welcome in the repository of the front-end dashboard for the _bert-faqclass_ project! This repository contains the code to set-up a dashboard to control the knowledge base of your AI chatbot.
 
+_Note_: check out the use case description in this [Medium article](https://nicola-massarenti.medium.com/end-to-end-machine-learning-bert-faqclass-81fd07d24058)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
